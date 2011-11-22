@@ -41,6 +41,8 @@ vnoremap > >gv
 " Buffers
 set hidden
 
+set ruler
+
 " Map forward/backward buffer navigation.
 map <C-right> <ESC>:bn<CR>
 map <C-left> <ESC>:bp<CR>
