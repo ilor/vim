@@ -9,6 +9,8 @@ let g:alternateSearchPath = 'sfr:../Source,sfr:../Include'
 let g:alternateNoDefaultAlternate = 1
 map <Leader>a :A<CR>
 
+" Command-T
+map <Leader>y :CommandT C_Application<CR>
 " NERD_tree.vim
 
 " /autohighlight.vim: Current word auto highlight 
