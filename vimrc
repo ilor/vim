@@ -103,6 +103,9 @@ map <leader>n :set number!<CR>
 " Paste mode toggle
 map <leader>p :set paste!<CR>
 
+" Rm trailing newlines
+map <F8> :%s/\s*$//g<CR>
+
 " Searching
 set ignorecase
 set smartcase
