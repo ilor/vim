@@ -120,6 +120,12 @@ map <leader>- :set nohls<cr>
 " Set off the other paren
 highlight MatchParen ctermbg=4
 
+" C++ tags
+autocmd FileType h,c,hpp,cpp :set tags+=~/.tags/*/tags
+
+" K3 tags
+autocmd FileType ttcn :set tags+=~/.tags/K3/*/tags
+
 " Abbreviations
 iab DUPA DEBUG_AAAA
 iab CHUJ DEBUG_BBBB
