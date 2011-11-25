@@ -53,7 +53,7 @@ map <C-left> <ESC>:bp<CR>
 map <silent> h <C-w><
 map <silent> j <C-W>-
 map <silent> k <C-W>+
-map <silent> s <C-w>>
+map <silent> l <C-w>>
 
 " Map Ctrl-[hjkl] to moving between windows
 map <silent> <C-h> <C-w>h
