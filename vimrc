@@ -11,6 +11,8 @@ map <Leader>a :A<CR>
 
 " Command-T
 map <Leader>y :CommandT C_Application<CR>
+set makeprg=make\ -j23\ -l999
+
 " NERD_tree.vim
 
 " /autohighlight.vim: Current word auto highlight 
