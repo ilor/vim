@@ -5,7 +5,7 @@ set backspace=indent,eol,start	" more powerful backspacing
 
 
 " a.vim: Alternate plugin for header/source switching
-let g:alternateSearchPath = 'sfr:../Source,sfr:../Include'
+let g:alternateSearchPath = 'sfr:../Source,sfr:../Include,sfr:../,sfr:src/'
 let g:alternateNoDefaultAlternate = 1
 map <Leader>a :A<CR>
 
