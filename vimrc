@@ -124,6 +124,30 @@ set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 set smarttab
 set autoindent
 
+" virtual tabstops using space
+let my_tab=4
+execute "set shiftwidth=".my_tab
+execute "set softtabstop=".my_tab
+set expandtab
+" allow toggling between local and default mode
+function! TabToggle()
+  if &expandtab
+    set shiftwidth=4
+    set softtabstop=0
+    set noexpandtab
+    redraw
+    echomsg "Tabs now NOT expanded"
+  else
+    execute "set shiftwidth=".g:my_tab
+    execute "set softtabstop=".g:my_tab
+    set expandtab
+    redraw
+    echomsg "Tabs now expanded"
+  endif
+endfunction
+
+nmap <Leader><Tab> :call Preserve(TabToggle())<CR>
+
 " Show invisible characters: tabs, nbsps and trailing spaces
 set list
 set listchars=tab:»·,trail:·,nbsp:‥
