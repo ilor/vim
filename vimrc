@@ -159,7 +159,7 @@ map <leader>n :set number!<CR>
 map <leader>p :set paste!<CR>
 
 " Rm trailing newlines
-map <F8> :%s/\s*$//g<CR>
+map <F8> :call Preserve("%s/\\s\\+$//e")<CR>
 
 " Searching
 set ignorecase
