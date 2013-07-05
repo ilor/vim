@@ -98,6 +98,9 @@ map <silent> p <C-w><S-w>
 nnoremap <silent> <Tab> <C-w>w
 nnoremap <silent> <S-Tab> <C-w>W
 
+if match($TERM, '256color$') != -1
+  colorscheme 256_xoria
+endif
 
 " Set to auto read when a file is changed from the outside
 " set autoread
