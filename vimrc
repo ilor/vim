@@ -2,6 +2,14 @@
 set nocompatible
 set background=dark
 set backspace=indent,eol,start	" more powerful backspacing
+set foldmethod=syntax
+
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+" set foldlevel=1
+" au BufWinLeave * mkview
+" au BufWinEnter * silent loadview
 
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.
@@ -152,7 +160,7 @@ function! TabToggle()
     set expandtab
     redraw
     echomsg "Tabs now expanded"
-  endif
+ endif
 endfunction
 
 nmap <Leader><Tab> :call Preserve(TabToggle())<CR>
@@ -196,7 +204,7 @@ function! StartCommitMsg ()
         return
     endif
     :0read !bts_task
-    :normal A: ^
+    :normal A: 
     :startinsert!
 endfunction
 autocmd BufReadPost COMMIT_EDITMSG :call StartCommitMsg()
