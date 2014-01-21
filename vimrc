@@ -34,6 +34,12 @@ let g:alternateSearchPath = 'sfr:../Source,sfr:../Include,sfr:../,sfr:src/'
 let g:alternateNoDefaultAlternate = 1
 map <Leader>a :A<CR>
 
+nnoremap ; :
+command! Wq wq
+command! WQ wq
+command! Q q
+command! W w
+
 " Command-T
 map <Leader>y :CommandT C_Application<CR>
 set makeprg=make\ -j23\ -l999
