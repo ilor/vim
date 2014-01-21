@@ -189,6 +189,18 @@ autocmd FileType ttcn :set tags+=~/.tags/K3/*/tags
 map <C-K> :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>
 imap <C-K> <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>i
 
+" git commit message
+function! StartCommitMsg ()
+    :1
+    if getline(".") !~ "^$"
+        return
+    endif
+    :0read !bts_task
+    :normal A: ^
+    :startinsert!
+endfunction
+autocmd BufReadPost COMMIT_EDITMSG :call StartCommitMsg()
+
 " Abbreviations
 iab DUPA DEBUG_AAAA
 iab CHUJ DEBUG_BBBB
