@@ -180,6 +180,9 @@ autocmd FileType h,c,hpp,cpp :set tags+=~/.tags/*/tags
 " K3 tags
 autocmd FileType ttcn :set tags+=~/.tags/K3/*/tags
 
+map <C-K> :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>
+imap <C-K> <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>i
+
 " Abbreviations
 iab DUPA DEBUG_AAAA
 iab CHUJ DEBUG_BBBB
