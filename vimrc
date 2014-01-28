@@ -172,6 +172,10 @@ map <leader>e :e! ~/.vim/vimrc<cr>
 " When vimrc is edited, reload it
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
 
+" (try to) copy and paste to and from the X clipboard
+" (requires xclip/xsel??)
+set clipboard=unnamedplus
+
 " Tabs
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 set smarttab
@@ -207,9 +211,9 @@ set listchars=tab:»·,trail:·,nbsp:‥
 
 " Line number display toggle
 map <leader>n :set number!<CR>
-
 " Paste mode toggle
-map <leader>p :set paste!<CR>
+"map <leader>p :set paste!<CR>
+inoremap <leader>p <C-R>=system('xclip -o')<C-m>
 
 " Rm trailing newlines
 map <F8> :call Preserve("%s/\\s\\+$//e")<CR>
