@@ -57,10 +57,46 @@ set makeprg=make\ -j23\ -l999
 " /autohighlight.vim: Current word auto highlight
 " (the key is <Leader>z/)
 
+
+"====[ Make the 81st column stand out ]====================
+" just the 81st column of wide lines... magenta?
+highlight ColorColumn ctermbg=red
+call matchadd('ColorColumn', '\%81v', 100)
+" OR ELSE on April Fools day...
+"highlight ColorColumn ctermbg=red ctermfg=blue
+"exec 'set colorcolumn=' . join(range(2,80,3), ',')
+
+"=====[ Highlight matches when jumping to next ]=============
+" This rewires n and N to do the highlighing...
+nnoremap <silent> n   n:call HLNext(0.4)<cr>
+nnoremap <silent> N   N:call HLNext(0.4)<cr>
+highlight WhiteOnRed guibg=white ctermbg=red
+
+" just highlight the match in red...
+function! HLNext (blinktime)
+    let [bufnum, lnum, col, off] = getpos('.')
+    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+    let target_pat = '\c\%#'.@/
+    let ring = matchadd('WhiteOnRed', target_pat, 101)
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    call matchdelete(ring)
+    redraw
+endfunction
+
+"====[ Open any file with a pre-existing swapfile in readonly mode "]=========
+augroup NoSimultaneousEdits
+    autocmd!
+    autocmd SwapExists * let v:swapchoice = 'o'
+    autocmd SwapExists * echohl ErrorMsg
+    autocmd SwapExists * echo 'Duplicate edit session (readonly)'
+    autocmd SwapExists * echohl None
+    autocmd SwapExists * sleep 2
+augroup END
+
 " bufExplorer plugin
 let g:bufExplorerShowRelativePath=1
 map <leader>o :BufExplorer<cr>
-
 
 " Have Vim jump to the last position when reopening a file
 if has("autocmd")
