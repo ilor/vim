@@ -42,6 +42,7 @@ let g:alternateSearchPath = 'sfr:../Source,sfr:../Include,sfr:../,sfr:src/'
 let g:alternateNoDefaultAlternate = 1
 map <Leader>a :A<CR>
 
+" Convenience
 nnoremap ; :
 command! Wq wq
 command! WQ wq
@@ -166,8 +167,9 @@ let g:mapleader = "\\"
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" Fast editing of the .vimrc
+" Fast editing of the .vimrc, .bashrc
 map <leader>e :e! ~/.vim/vimrc<cr>
+map <leader>r :e! ~/.bashrc<cr>
 
 " When vimrc is edited, reload it
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
@@ -177,16 +179,15 @@ autocmd! bufwritepost vimrc source ~/.vim/vimrc
 set clipboard=unnamedplus
 
 " Tabs
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+set expandtab
 set smarttab
 set autoindent
-
-" virtual tabstops using space
-let my_tab=4
+set tabstop=4
+let my_tab=2
 execute "set shiftwidth=".my_tab
 execute "set softtabstop=".my_tab
-set expandtab
-" allow toggling between local and default mode
+
+" Allow toggling between normal and real tab mode with <Leader><TAB>
 function! TabToggle()
   if &expandtab
     set shiftwidth=4
@@ -223,7 +224,8 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
-map <leader>- :set nohls<cr>
+nnoremap - :noh<cr>
+map <leader>- :set hlsearch!<cr>
 
 " Set off the other paren
 highlight MatchParen ctermbg=4
@@ -231,6 +233,7 @@ highlight MatchParen ctermbg=4
 " C++ tags
 autocmd FileType h,c,hpp,cpp :set tags+=~/.tags/*/tags
 
+" clang-format magic
 map <C-K> :pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>
 imap <C-K> <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.4.py<CR>i
 
@@ -241,6 +244,8 @@ function! StartCommitMsg ()
         return
     endif
     :0read !bts_task
+    " expand folds so commit summary is not folded
+    :normal zR
     :normal A: 
     :startinsert!
 endfunction
