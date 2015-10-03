@@ -38,6 +38,10 @@ if (!has_key(g:emacsModeDict, 'c++'))
     let g:emacsModeDict['c++'] = 'cpp'
 endif
 
+if (!has_key(g:emacsModeDict, 'js'))
+    let g:emacsModeDict['js'] = 'javascript'
+endif
+
 if (!has_key(g:emacsModeDict, 'shell-script'))
     let g:emacsModeDict['shell-script'] = 'sh'
 endif
