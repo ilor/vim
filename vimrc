@@ -11,6 +11,9 @@ onoremap <F9> <C-C>za
 " au BufWinLeave * mkview
 " au BufWinEnter * silent loadview
 
+:nnoremap <Leader>d "=strftime("%A, %d %b %Y, %H:%M:%S")<CR>P
+:inoremap <Leader>d <C-R>=strftime("%A, %d %b %Y, %H:%M:%S")<CR>
+
 " A wrapper function to restore the cursor position, window position,
 " and last search after running a command.
 " Source: https://docwhat.org/vim-preserve-your-cursor-and-window-state/
@@ -48,6 +51,8 @@ command! Wq wq
 command! WQ wq
 command! Q q
 command! W w
+command! Mru MRU
+ab mru MRU
 
 " Command-T
 map <Leader>y :CommandT C_Application<CR>
@@ -62,28 +67,40 @@ set makeprg=make\ -j23\ -l999
 "====[ Make the 81st column stand out ]====================
 " just the 81st column of wide lines... magenta?
 highlight ColorColumn ctermbg=red
-call matchadd('ColorColumn', '\%81v', 100)
+let g:match80=0
+
+function! Toggle80()
+  if g:match80 == 0
+    let g:match80=matchadd('ColorColumn', '\%81v', 100)
+  else
+    call matchdelete(g:match80)
+    let g:match80=0
+  endif
+endfunction
+
+map <Leader>8 :call Preserve(Toggle80())<CR>
+call Preserve(Toggle80())
 " OR ELSE on April Fools day...
 "highlight ColorColumn ctermbg=red ctermfg=blue
 "exec 'set colorcolumn=' . join(range(2,80,3), ',')
 
 "=====[ Highlight matches when jumping to next ]=============
 " This rewires n and N to do the highlighing...
-nnoremap <silent> n   n:call HLNext(0.4)<cr>
-nnoremap <silent> N   N:call HLNext(0.4)<cr>
-highlight WhiteOnRed guibg=white ctermbg=red
-
-" just highlight the match in red...
-function! HLNext (blinktime)
-    let [bufnum, lnum, col, off] = getpos('.')
-    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-    let target_pat = '\c\%#'.@/
-    let ring = matchadd('WhiteOnRed', target_pat, 101)
-    redraw
-    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-    call matchdelete(ring)
-    redraw
-endfunction
+"nnoremap <silent> n   n:call HLNext(0.4)<cr>
+"nnoremap <silent> N   N:call HLNext(0.4)<cr>
+"highlight WhiteOnRed guibg=white ctermbg=red
+"
+"" just highlight the match in red...
+"function! HLNext (blinktime)
+"    let [bufnum, lnum, col, off] = getpos('.')
+"    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
+"    let target_pat = '\c\%#'.@/
+"    let ring = matchadd('WhiteOnRed', target_pat, 101)
+"    redraw
+"    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+"    call matchdelete(ring)
+"    redraw
+"endfunction
 
 "====[ Open any file with a pre-existing swapfile in readonly mode "]=========
 augroup NoSimultaneousEdits
@@ -121,9 +138,17 @@ set hidden
 
 set ruler
 
-" Map forward/backward buffer navigation.
+" Map ctrl-forward/backward to buffer navigation.
 map <C-right> <ESC>:bn<CR>
 map <C-left> <ESC>:bp<CR>
+
+" Map shift-up/down to wrap-abiding up/down
+nnoremap <S-up> gk
+vnoremap <S-up> gk
+inoremap <S-up> <ESC>gki
+nnoremap <S-down> gj
+vnoremap <S-down> gj
+inoremap <S-up> <ESC>gji
 
 " Maps Alt-[h,j,k,l] to resizing a window split
 map <silent> h <C-w><
